@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      # The built package must load on the oldest supported Node.js.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: |
+          node -e "
+            const { Voozin, verifyWebhook } = require('./dist/index.cjs');
+            new Voozin('k');
+            const headers = { 'webhook-id': 'm', 'webhook-timestamp': String(Math.floor(Date.now() / 1000)), 'webhook-signature': 'v1,x' };
+            verifyWebhook('{}', headers, 'whsec_AAAA').catch((e) => { if (e.name !== 'WebhookVerificationError') throw e; });
+          "

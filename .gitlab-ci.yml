@@ -1,0 +1,12 @@
+# Tests on every push. Publishing to npm runs from the GitHub mirror (.github/workflows/publish.yml),
+# because npm provenance only trusts GitHub Actions and GitLab.com runners.
+test:
+  image: node:24-alpine
+  cache:
+    key: npm
+    paths: [.npm/]
+  script:
+    - npm ci --cache .npm --prefer-offline --no-audit
+    - npm run typecheck
+    - npm test
+    - npm run build

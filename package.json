@@ -1,0 +1,86 @@
+{
+  "name": "voozin",
+  "version": "0.1.0",
+  "description": "Official Node.js SDK for Voozin: transactional email API, signed webhooks, inbound email and replies.",
+  "keywords": [
+    "email",
+    "transactional-email",
+    "email-api",
+    "inbound-email",
+    "webhooks",
+    "smtp",
+    "voozin",
+    "nextjs",
+    "express"
+  ],
+  "homepage": "https://voozin.com/docs/sdk/node",
+  "bugs": "https://github.com/voozin/voozin-node/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voozin/voozin-node.git"
+  },
+  "license": "MIT",
+  "author": "Neurochain Limited <support@voozin.com>",
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./next": {
+      "import": {
+        "types": "./dist/next.d.ts",
+        "default": "./dist/next.js"
+      },
+      "require": {
+        "types": "./dist/next.d.cts",
+        "default": "./dist/next.cjs"
+      }
+    },
+    "./express": {
+      "import": {
+        "types": "./dist/express.d.ts",
+        "default": "./dist/express.js"
+      },
+      "require": {
+        "types": "./dist/express.d.cts",
+        "default": "./dist/express.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3",
+    "vitest": "5.1.0"
+  }
+}
