@@ -1,6 +1,6 @@
 {
   "name": "voozin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official Node.js SDK for Voozin: transactional email API, signed webhooks, inbound email and replies.",
   "keywords": [
     "email",
