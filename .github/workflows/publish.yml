@@ -1,6 +1,7 @@
 name: Publish to npm
 
 # Runs when a vX.Y.Z tag reaches the GitHub mirror. The tag must match package.json's version.
+# Authenticates with npm trusted publishing (OIDC), configured on the package's npm settings page; no token.
 on:
   push:
     tags: ["v*.*.*"]
@@ -23,5 +24,3 @@ jobs:
         run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
       - run: npm ci
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
